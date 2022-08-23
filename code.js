@@ -69,8 +69,8 @@ class Astronauta{
 
     dispararizq(){
         const Proyectilizq = new DisparoIzq (this.x -20, this.y + (this.h/2),20,40)
-        ProyectilDerDeposito.push(Proyectilizq)
-        console.log(ProyectilDerDeposito)
+        ProyectilDerDepositoIzq.push(Proyectilizq)
+        console.log(ProyectilDerDepositoIzq)
     }
     
     morir(){
@@ -225,7 +225,7 @@ mostrarDatos()
  function crearAlien(){
         const num = Math.floor(Math.random()*100)
         if(num == 3){
-        const redAliend = new AlienRojo (1800,710,40,200,Alienred) 
+        const redAliend = new AlienRojo (1860,710,40,200,Alienred) 
         aliensRojo.push(redAliend)   
         }}
 function crearAlienIzq(){
@@ -332,7 +332,7 @@ setInterval(() => {
         });
 
         ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
-            if(ProyectilD.x+ProyectilD.w >1780){
+            if(ProyectilD.x + ProyectilD.w >1800){
                 ProyectilDerDeposito.splice(0,1)
             }
             ProyectilD.dibujarse();
@@ -343,23 +343,25 @@ setInterval(() => {
              }  
           })
         })
+        
 
-        ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
-            
-            ProyectilD.dibujarse();
-            aliensRojo.forEach((Rojo, RIndex) => {
-                
-            if(Rojo.x <= ProyectilD.x+ProyectilD.w){
-                ProyectilDerDeposito.splice(PIndex,1)
-                aliensRojo.splice(RIndex,1)
+        ProyectilDerDepositoIzq.forEach((ProyectilIzq, PIzqndex)=>{
+            if(ProyectilIzq.x + ProyectilIzq.w == 55){
+                ProyectilDerDepositoIzq.splice(0,1)
+            }
+            ProyectilIzq.dibujarse();
+            alienRojoIzq.forEach((Rojoizq, RIzqndex) => {
+            if(ProyectilIzq.x+ProyectilIzq.w <= Rojoizq.x+40){
+                ProyectilDerDepositoIzq.splice(PIzqndex,1)
+                alienRojoIzq.splice(RIzqndex,1)
              }  
           })
         })
 
-        gasObjective();
+        // gasObjective();
         crearAlien();
         crearAlienIzq();
-        crearAlienAmarillo();
+        // crearAlienAmarillo();
         // generateCoin();
     }, 1000/ 30);
 }
