@@ -77,7 +77,7 @@ class Astronauta{
     }
     
     dibujarse(){
-        
+        ctx.fillRect(this.x, this.y,this.w,this.h);
         ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
     }
 } 
@@ -208,7 +208,7 @@ function teclas(astro){
     });
 }
 // Mostar información------------------------------------------------------------------------------
-function mostrarDatos(score,vida,Gasolina){ 
+function mostrarDatos(score,vida,medidor){ 
     ctx.fillStyle = "black"
     ctx.font = "35px Arial";
     //Titulo
@@ -217,19 +217,19 @@ function mostrarDatos(score,vida,Gasolina){
     //Puntaje
     ctx.fillText(`Score ${score} puntos`,80,85)
     //Gasolina
-    ctx.fillText(`Gasolina Total: ${Gasolina}`,80,135)
+    ctx.fillText(`Gasolina Total: ${medidor}`,80,135)
     
 }
-mostrarDatos()
+
 // ENEMIGOS----------------------------------------------------------------------------------------
  function crearAlien(){
-        const num = Math.floor(Math.random()*100)
+        const num = Math.floor(Math.random()*50)
         if(num == 3){
         const redAliend = new AlienRojo (1860,710,40,200,Alienred) 
         aliensRojo.push(redAliend)   
         }}
 function crearAlienIzq(){
-        const num = Math.floor(Math.random()*100)
+        const num = Math.floor(Math.random()*50)
         if(num == 3){
         const redAliendIzq = new AlienRojoIzq (0,710,40,200,Alienblue) 
         alienRojoIzq.push(redAliendIzq)   
@@ -242,9 +242,9 @@ function crearAlienAmarillo(){
         console.log 
         }}
 function gasObjective(){
-        const num = Math.floor(Math.random()*300)
-        if(num == 3){
-        const Gasoline = new Gas (Math.floor(Math.random()*1800),0,60,60,gasBomb) 
+        const num = Math.floor(Math.random()*50)
+        if(num == 3){           //Math.floor(Math.random()*1800)
+        const Gasoline = new Gas (900,0,60,60,gasBomb) 
         gasContainer.push(Gasoline)   
         }}
 function generateCoin(){
@@ -257,7 +257,7 @@ function generateCoin(){
     
 function iniciarJuego(){
     let score=0;
-    let Gasolina=0
+    let medidor=0
     const astro = new Astronauta(900,710,80,200,100,Mike)
     teclas(astro)
     console.log(astro)
@@ -267,7 +267,7 @@ function iniciarJuego(){
 setInterval(() => {
         
         ctx.clearRect(0,0,1918,963)
-        mostrarDatos(score,astro.vida,Gasolina)
+        mostrarDatos(score,astro.vida,medidor)
         astro.dibujarse()
 
         // CREAR ENEMIGO
@@ -278,7 +278,7 @@ setInterval(() => {
             if(Rojo.x <= astro.x + astro.w){
                 aliensRojo.splice(0,1)
                 astro.vida -=25
-                score +=25
+                
            
                 aliensRojo.splice(0,1)
 
@@ -301,10 +301,11 @@ setInterval(() => {
         });
         aliensAmarillo.forEach((Amarillo) => {
             Amarillo.dibujarse();
-            
+
             if (Amarillo.y >= astro.y && Amarillo.x >= astro.x && Amarillo.x + Amarillo.w <= astro.x + astro.w) {   
-                aliensAmarillo.splice(0,1)
                 astro.vida -=15
+                aliensAmarillo.splice(0,1)
+                
             }
 
       
@@ -315,10 +316,15 @@ setInterval(() => {
             Gasolina.dibujarse();
             if (Gasolina.y > 900){
                 gasContainer.splice(0,1)
+                
             }
             if (Gasolina.y >= astro.y && Gasolina.x >= astro.x && Gasolina.x + Gasolina.w <= astro.x + astro.w) {   
                 gasContainer.splice(0,1)
-                Gasolina +=25
+                medidor+=25
+            }
+
+            if (medidor==300){
+                alert("Felicidades, tienes suficiente combustible para escapar")
             }
            
         });
@@ -331,13 +337,15 @@ setInterval(() => {
             
         });
 
+        //ELIMINACIÓN DE ELEMENTOS
         ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
-            if(ProyectilD.x + ProyectilD.w >1800){
+            if(ProyectilD.x + ProyectilD.w >1750){
                 ProyectilDerDeposito.splice(0,1)
             }
             ProyectilD.dibujarse();
             aliensRojo.forEach((Rojo, RIndex) => {
              if(ProyectilD.x+ProyectilD.w >= Rojo.x ){
+                score +=25
                 ProyectilDerDeposito.splice(PIndex,1)
                 aliensRojo.splice(RIndex,1)
              }  
@@ -346,24 +354,29 @@ setInterval(() => {
         
 
         ProyectilDerDepositoIzq.forEach((ProyectilIzq, PIzqndex)=>{
-            if(ProyectilIzq.x + ProyectilIzq.w == 55){
+            if(ProyectilIzq.x + ProyectilIzq.w == 150){
                 ProyectilDerDepositoIzq.splice(0,1)
             }
             ProyectilIzq.dibujarse();
             alienRojoIzq.forEach((Rojoizq, RIzqndex) => {
             if(ProyectilIzq.x+ProyectilIzq.w <= Rojoizq.x+40){
+                score +=25
                 ProyectilDerDepositoIzq.splice(PIzqndex,1)
                 alienRojoIzq.splice(RIzqndex,1)
              }  
           })
         })
 
-        // gasObjective();
-        crearAlien();
-        crearAlienIzq();
+
+        // crearAlien();
+        // crearAlienIzq();
         // crearAlienAmarillo();
+        gasObjective();
         // generateCoin();
+        
     }, 1000/ 30);
 }
 
 iniciarJuego()
+
+
