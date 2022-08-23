@@ -77,8 +77,7 @@ class Astronauta{
     }
     
     dibujarse(){
-        ctx.fillStyle = "dodgerblue"
-        ctx.fillRect(this.x,this.y,this.w,this.h)
+        
         ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
     }
 } 
@@ -238,7 +237,7 @@ function crearAlienIzq(){
 function crearAlienAmarillo(){
         const num = Math.floor(Math.random()*50)
         if(num == 3){
-        const Amarillo = new AlienAmarillo (Math.floor(Math.random()*1850),0,40,40,AlienAyellow) 
+        const Amarillo = new AlienAmarillo (Math.floor(Math.random()*1850),0,60,60,AlienAyellow) 
         aliensAmarillo.push(Amarillo)  
         console.log 
         }}
@@ -247,15 +246,13 @@ function gasObjective(){
         if(num == 3){
         const Gasoline = new Gas (Math.floor(Math.random()*1800),0,60,60,gasBomb) 
         gasContainer.push(Gasoline)   
-        }
-    }
+        }}
 function generateCoin(){
         const num = Math.floor(Math.random()*300)
         if(num == 3){
         const Gold = new MineralCoin (Math.floor(Math.random()*1800),0,60,60,Mineral) 
         MineralDeposito.push(Gold)   
-        }
-    }
+        }}
     
     
 function iniciarJuego(){
@@ -302,7 +299,6 @@ setInterval(() => {
                 console.log("El juego terminó")
             }
         });
-
         aliensAmarillo.forEach((Amarillo) => {
             Amarillo.dibujarse();
             
@@ -313,14 +309,16 @@ setInterval(() => {
 
       
         });
+        
         // CREAR ELEMENTOS
         gasContainer.forEach((Gasolina) =>{
             Gasolina.dibujarse();
             if (Gasolina.y > 900){
                 gasContainer.splice(0,1)
             }
-            if (Gasolina.y < astro.y){
-                Gasolina +=20
+            if (Gasolina.y >= astro.y && Gasolina.x >= astro.x && Gasolina.x + Gasolina.w <= astro.x + astro.w) {   
+                gasContainer.splice(0,1)
+                Gasolina +=25
             }
            
         });
@@ -333,19 +331,35 @@ setInterval(() => {
             
         });
 
-        ProyectilDerDeposito.forEach((ProyectilD)=>{
+        ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
+            if(ProyectilD.x+ProyectilD.w >1780){
+                ProyectilDerDeposito.splice(0,1)
+            }
             ProyectilD.dibujarse();
+            aliensRojo.forEach((Rojo, RIndex) => {
+             if(ProyectilD.x+ProyectilD.w >= Rojo.x ){
+                ProyectilDerDeposito.splice(PIndex,1)
+                aliensRojo.splice(RIndex,1)
+             }  
+          })
         })
 
-        ProyectilDerDepositoIzq.forEach((Proyectilizq)=>{
-            Proyectilizq.dibujarse();
+        ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
+            
+            ProyectilD.dibujarse();
+            aliensRojo.forEach((Rojo, RIndex) => {
+                
+            if(Rojo.x <= ProyectilD.x+ProyectilD.w){
+                ProyectilDerDeposito.splice(PIndex,1)
+                aliensRojo.splice(RIndex,1)
+             }  
+          })
         })
 
-
+        gasObjective();
         crearAlien();
-        // crearAlienIzq();
+        crearAlienIzq();
         crearAlienAmarillo();
-        // gasObjective();
         // generateCoin();
     }, 1000/ 30);
 }
