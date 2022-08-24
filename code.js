@@ -187,7 +187,7 @@ class DisparoIzq{
 //Función para identificar el tipo de tecla que se presiona
 function teclas(astro){
     document.addEventListener("keyup", (evento) => {
-        // console.log("Tecla tocada",evento.code)
+         console.log("Tecla tocada",evento.code)
       switch(evento.code){
             case "ArrowRight":
                 astro.avanzar();
@@ -302,9 +302,12 @@ setInterval(() => {
         aliensAmarillo.forEach((Amarillo) => {
             Amarillo.dibujarse();
 
-            if (Amarillo.y >= astro.y && Amarillo.x >= astro.x && Amarillo.x + Amarillo.w <= astro.x + astro.w) {   
+            if (Amarillo.y >= astro.y && 
+                Amarillo.x >= astro.x && 
+                 Amarillo.x + Amarillo.w <= astro.x + astro.w) {
+                aliensAmarillo.splice(0,1)   
                 astro.vida -=15
-                aliensAmarillo.splice(0,1)
+                
                 
             }
 
@@ -323,9 +326,10 @@ setInterval(() => {
                 medidor+=25
             }
 
-            if (medidor==300){
-                alert("Felicidades, tienes suficiente combustible para escapar")
-            }
+            // if (medidor>=300){
+            //     alert("Escapa, tienes suficiente combustible para escapar")
+                
+            // }
            
         });
 
@@ -368,11 +372,11 @@ setInterval(() => {
         })
 
 
-        // crearAlien();
-        // crearAlienIzq();
-        // crearAlienAmarillo();
+        crearAlien();
+        crearAlienIzq();
+        crearAlienAmarillo();
         gasObjective();
-        // generateCoin();
+        generateCoin();
         
     }, 1000/ 30);
 }

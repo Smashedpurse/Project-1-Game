@@ -2,7 +2,7 @@
 *{
     margin: 0;
     padding: 0;
-    transition: 4s;
+    
 }
     
 body{
@@ -21,7 +21,7 @@ body{
     
 }
 
-h1{
+.Tsm{
     color: #f2f2f2;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: transparent;
@@ -29,6 +29,7 @@ h1{
     margin-bottom: 3rem;
     z-index: 2;
     pointer-events: none;
+    transition: 4s;
     
 }
 
@@ -44,12 +45,68 @@ h1{
     z-index: 2;
     display: flex;
     justify-content: center;
-
+    
     
 }
 
 .button:hover(){
     color:  #f2f2f2;
     background-color: #121212;
+    transition: 4s;
 }
+
+.trigger{
+    position: absolute;
+    bottom: -120px;
+    left: 910px;
+    border-radius: 10%;
+    padding: 20px;
+    background: transparent;
+    color:#f2f2f2;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+}
+
+.close-button {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+
+.close-button:hover {
+    background-color: darkgray;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
 
