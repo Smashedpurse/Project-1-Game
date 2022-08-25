@@ -336,7 +336,7 @@ setInterval(() => {
 
             }if(astro.vida == 0){
                 gameOver.play();
-                ctx.clearRect()
+                
                 
             }
 
@@ -354,7 +354,7 @@ setInterval(() => {
                 console.log("El juego terminó")
             }if(astro.vida <0){
                 gameOver.play();
-                ctx.clearRect()
+                
                 
                 
             }
@@ -375,7 +375,7 @@ setInterval(() => {
                 
             }if(astro.vida <0){
                 gameOver.play();
-                ctx.clearRect()
+                
                 
             }
 
