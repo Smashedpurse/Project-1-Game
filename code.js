@@ -6,54 +6,50 @@ let ctx = lienzo.getContext("2d")
 // Background.src ="/Pictures/Captura2.PNG"
 
 const Mike= new Image()
-Mike.src = "/Pictures/Redman.png"
+Mike.src = "./Pictures/Redman.png"
 
 const Alienred= new Image()
-Alienred.src = "/Pictures/Alien.Der.png"
+Alienred.src = "./Pictures/Alien.Der.png"
 
 
 const Alienblue= new Image()
-Alienblue.src = "/Pictures/Blue.png"
+Alienblue.src = "./Pictures/Blue.png"
 
 const AlienAyellow= new Image()
-AlienAyellow.src = "/Pictures/47.png"
+AlienAyellow.src = "./Pictures/47.png"
 
 const gasBomb= new Image()
-gasBomb.src = "/Pictures/Gas.png"
+gasBomb.src = "./Pictures/Gas.png"
 
 const Mineral= new Image()
-Mineral.src = "/Pictures/Mineral.png"
+Mineral.src = "./Pictures/Mineral.png"
 
 const Note1= new Image()
-Note1.src = "/Pictures/Note3.png"
+Note1.src = "./Pictures/Note3.png"
 
 const Note2= new Image()
-Note2.src = "/Pictures/Note5.png"
+Note2.src = "./Pictures/Note5.png"
 
 //Audio
 const shoot = new Audio();
-shoot.src ="/Music/sound (3).wav"
+shoot.src ="./Music/sound (3).wav"
 
 const shoot2 = new Audio();
-shoot2.src ="/Music/sound (2).wav"
+shoot2.src ="./Music/sound (2).wav"
 
 const loseHealth = new Audio();
-loseHealth.src ="/Music/sound (5).wav"
+loseHealth.src ="./Music/sound (5).wav"
 
 const gelFuel = new Audio();
-gelFuel.src ="/Music/sound (6).wav"
+gelFuel.src ="./Music/sound (6).wav"
 
 const treasure = new Audio();
-treasure.src ="/Music/sound (7).wav"
+treasure.src ="./Music/sound (7).wav"
 
 const gameOver = new Audio();
-gameOver.src ="/Music/endSong.mp3"
+gameOver.src ="./Music/endSong.mp3"
 
-const musicStart = new Audio();
-musicStart.src ="/Music/Espacio.mp3"
 
-const winSong = new Audio();
-winSong.src ="/Music/winSong.mp3"
 
 //LISTA DE enemigos / Otros elementos
 
@@ -403,9 +399,7 @@ setInterval(() => {
                     gelFuel.play()   
                 }
 
-            if (medidor == 100){
-                winSong.play()
-                
+            if (medidor>=400){
                 console.log("Scape, you have enough fuel to escape")
                 
             }
