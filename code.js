@@ -2,6 +2,9 @@
 let lienzo = document.getElementById("canvasGameSection")
 let ctx = lienzo.getContext("2d")
 
+// const Background = new Image ()
+// Background.src ="/Pictures/Captura2.PNG"
+
 const Mike= new Image()
 Mike.src = "/Pictures/Redman.png"
 
@@ -22,12 +25,70 @@ const Mineral= new Image()
 Mineral.src = "/Pictures/Mineral.png"
 
 const Note1= new Image()
-Note1.src = "/Pictures/ProyectilDer.png"
+Note1.src = "/Pictures/Note3.png"
 
 const Note2= new Image()
-Note2.src = "/Pictures/Proyectilizq.png"
+Note2.src = "/Pictures/Note5.png"
+
+//Audio
+const shoot = new Audio();
+shoot.src ="/Music/sound (3).wav"
+
+const shoot2 = new Audio();
+shoot2.src ="/Music/sound (2).wav"
+
+const loseHealth = new Audio();
+loseHealth.src ="/Music/sound (5).wav"
+
+const gelFuel = new Audio();
+gelFuel.src ="/Music/sound (6).wav"
+
+const treasure = new Audio();
+treasure.src ="/Music/sound (7).wav"
+
+const gameOver = new Audio();
+gameOver.src ="/Music/endSong.mp3"
+
+const musicStart = new Audio();
+musicStart.src ="/Music/Espacio.mp3"
+
+const winSong = new Audio();
+winSong.src ="/Music/winSong.mp3"
 
 //LISTA DE enemigos / Otros elementos
+
+// const backgroundImage = {
+//     img: img,
+//     x: 0,
+//     speed: -1,
+  
+//     move: function() {
+//       this.x += this.speed;
+//       this.x %= canvas.width;
+//     },
+  
+//     draw: function() {
+//       ctx.drawImage(this.img, this.x, 0);
+//       if (this.speed < 0) {
+//         ctx.drawImage(this.img, this.x + canvas.width, 0);
+//       } else {
+//         ctx.drawImage(this.img, this.x - this.img.width, 0);
+//       }
+//     },
+//   };
+  
+//   function updateCanvas() {
+//     backgroundImage.move();
+  
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//     backgroundImage.draw();
+  
+//     requestAnimationFrame(updateCanvas);
+//   }
+
+//   img.onload = updateCanvas;
+
+  
 
 const aliensRojo=[];
 const aliensAmarillo=[];
@@ -62,22 +123,21 @@ class Astronauta{
         }
     }
     disparar(){
-        const ProyectilDer = new Disparo (this.x + this.w,this.y + (this.h/2),20,40)
+        const ProyectilDer = new Disparo (this.x + this.w,this.y + (this.h/2),20,40,Note1)
         ProyectilDerDeposito.push(ProyectilDer)
         console.log(ProyectilDerDeposito)
+        shoot.play();
     }
 
     dispararizq(){
-        const Proyectilizq = new DisparoIzq (this.x -20, this.y + (this.h/2),20,40)
+        const Proyectilizq = new DisparoIzq (this.x -20, this.y + (this.h/2),20,40,Note2)
         ProyectilDerDepositoIzq.push(Proyectilizq)
         console.log(ProyectilDerDepositoIzq)
-    }
-    
-    morir(){
+        shoot2.play();
     }
     
     dibujarse(){
-        ctx.fillRect(this.x, this.y,this.w,this.h);
+        
         ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
     }
 } 
@@ -91,7 +151,7 @@ class AlienRojo{
     }
     dibujarse(){
         ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
-       this.x -=1
+       this.x -=35
     }
 }
 class AlienRojoIzq{
@@ -104,8 +164,8 @@ class AlienRojoIzq{
     }
     dibujarse(){
        ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
-        this.x +=1
-    }
+        this.x +=35
+     }
 }
 class AlienAmarillo{
     constructor(x,y,w,h,imagen,){
@@ -116,8 +176,6 @@ class AlienAmarillo{
         this.imagen=imagen
     }
     dibujarse(){
-        ctx.fillStyle = "dodgerblue"
-        ctx.fillRect(this.x,this.y,this.w,this.h)
         ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
         this.y +=5 
     }
@@ -152,34 +210,32 @@ class MineralCoin{
 }
 
 class Disparo{
-    constructor(x,y,w,h){
+    constructor(x,y,w,h,imagen){
         this.x=x
         this.y=y
         this.w=w
         this.h=h
-        
+        this.imagen=imagen
     }
     dibujarse(){
-        ctx.fillStyle = "green"
-        ctx.fillRect(this.x, this.y,this.w,this.h)
         
-        this.x +=5
+        ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
+        this.x +=10
     }
 }
 
 class DisparoIzq{
-    constructor(x,y,w,h){
+    constructor(x,y,w,h,imagen){
         this.x=x
         this.y=y
         this.w=w
         this.h=h
+        this.imagen=imagen
         
     }
     dibujarse(){
-        ctx.fillStyle = "green"
-        ctx.fillRect(this.x, this.y,this.w,this.h)
-        
-        this.x -=5
+        ctx.drawImage(this.imagen, this.x, this.y,this.w,this.h);
+        this.x -=10
     }
 }
 
@@ -209,33 +265,33 @@ function teclas(astro){
 }
 // Mostar información------------------------------------------------------------------------------
 function mostrarDatos(score,vida,medidor){ 
-    ctx.fillStyle = "black"
-    ctx.font = "35px Arial";
+    ctx.fillStyle = "white"
+    ctx.font = "55px Arial";
     //Titulo
     //Vida
-    ctx.fillText(`Vida: ${vida}`,80,35)
+    ctx.fillText(`Vida: ${vida}`,80,120)
     //Puntaje
-    ctx.fillText(`Score ${score} puntos`,80,85)
+    ctx.fillText(`Score ${score} puntos`,80,175)
     //Gasolina
-    ctx.fillText(`Gasolina Total: ${medidor}`,80,135)
+    ctx.fillText(`Gasolina Total: ${medidor}`,80,235)
     
 }
 
 // ENEMIGOS----------------------------------------------------------------------------------------
  function crearAlien(){
-        const num = Math.floor(Math.random()*50)
+        const num = Math.floor(Math.random()*150)
         if(num == 3){
         const redAliend = new AlienRojo (1860,710,40,200,Alienred) 
         aliensRojo.push(redAliend)   
         }}
 function crearAlienIzq(){
-        const num = Math.floor(Math.random()*50)
+        const num = Math.floor(Math.random()*150)
         if(num == 3){
         const redAliendIzq = new AlienRojoIzq (0,710,40,200,Alienblue) 
         alienRojoIzq.push(redAliendIzq)   
         }}
 function crearAlienAmarillo(){
-        const num = Math.floor(Math.random()*50)
+        const num = Math.floor(Math.random()*100)
         if(num == 3){
         const Amarillo = new AlienAmarillo (Math.floor(Math.random()*1850),0,60,60,AlienAyellow) 
         aliensAmarillo.push(Amarillo)  
@@ -244,7 +300,7 @@ function crearAlienAmarillo(){
 function gasObjective(){
         const num = Math.floor(Math.random()*50)
         if(num == 3){           //Math.floor(Math.random()*1800)
-        const Gasoline = new Gas (900,0,60,60,gasBomb) 
+        const Gasoline = new Gas (Math.floor(Math.random()*1800),0,60,60,gasBomb) 
         gasContainer.push(Gasoline)   
         }}
 function generateCoin(){
@@ -278,12 +334,14 @@ setInterval(() => {
             if(Rojo.x <= astro.x + astro.w){
                 aliensRojo.splice(0,1)
                 astro.vida -=25
-                
+                loseHealth.play()
            
                 aliensRojo.splice(0,1)
 
-            }if(astro.vida <0){
-                console.log("El juego terminó")
+            }if(astro.vida == 0){
+                gameOver.play();
+                ctx.clearRect()
+                
             }
 
         });
@@ -294,20 +352,34 @@ setInterval(() => {
                 alienRojoIzq.splice(0,1)
                 astro.vida -=35
                 score +=25 
+                loseHealth.play()
             }
                 if(astro.vida == 0){
                 console.log("El juego terminó")
+            }if(astro.vida <0){
+                gameOver.play();
+                ctx.clearRect()
+                
+                
             }
         });
         aliensAmarillo.forEach((Amarillo) => {
             Amarillo.dibujarse();
 
-            if (Amarillo.y >= astro.y && 
-                Amarillo.x >= astro.x && 
-                 Amarillo.x + Amarillo.w <= astro.x + astro.w) {
+            if (
+                astro.x + astro.w >= Amarillo.x &&
+                astro.y <= Amarillo.y + Amarillo.h &&
+                astro.y + astro.h >= Amarillo.y &&
+                astro.x <= Amarillo.x + Amarillo.w
+
+            ) {
                 aliensAmarillo.splice(0,1)   
-                astro.vida -=15
+                astro.vida -=5
+                loseHealth.play()
                 
+            }if(astro.vida <0){
+                gameOver.play();
+                ctx.clearRect()
                 
             }
 
@@ -321,15 +393,22 @@ setInterval(() => {
                 gasContainer.splice(0,1)
                 
             }
-            if (Gasolina.y >= astro.y && Gasolina.x >= astro.x && Gasolina.x + Gasolina.w <= astro.x + astro.w) {   
-                gasContainer.splice(0,1)
-                medidor+=25
-            }
+            if (
+                astro.x + astro.w >= Gasolina.x &&
+                astro.y <= Gasolina.y + Gasolina.h &&
+                astro.y + astro.h >= Gasolina.y &&
+                astro.x <= Gasolina.x + Gasolina.w){
+                    gasContainer.splice(0,1)
+                    medidor+=25
+                    gelFuel.play()   
+                }
 
-            // if (medidor>=300){
-            //     alert("Escapa, tienes suficiente combustible para escapar")
+            if (medidor == 100){
+                winSong.play()
                 
-            // }
+                console.log("Scape, you have enough fuel to escape")
+                
+            }
            
         });
 
@@ -338,11 +417,24 @@ setInterval(() => {
            if (oro.y > 900){
             MineralDeposito.splice(0,1)
         }
-            
+        if (
+            astro.x + astro.w >= oro.x &&
+            astro.y <= oro.y + oro.h &&
+            astro.y + astro.h >= oro.y &&
+            astro.x <= oro.x + oro.w){
+                MineralDeposito.splice(0,1)
+                score+=100  
+                treasure.play();
+            }   
         });
 
         //ELIMINACIÓN DE ELEMENTOS
         ProyectilDerDeposito.forEach((ProyectilD, PIndex)=>{
+
+            if(ProyectilD==4){
+                ProyectilD=false
+            }
+
             if(ProyectilD.x + ProyectilD.w >1750){
                 ProyectilDerDeposito.splice(0,1)
             }

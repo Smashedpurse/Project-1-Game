@@ -57,7 +57,7 @@ body{
 
 .trigger{
     position: absolute;
-    bottom: -120px;
+    bottom: -100px;
     left: 910px;
     border-radius: 10%;
     padding: 20px;
@@ -86,6 +86,7 @@ body{
     padding: 1rem 1.5rem;
     width: 24rem;
     border-radius: 0.5rem;
+    
 }
 
 .close-button {
@@ -109,4 +110,10 @@ body{
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+img{
+    width: 100px;
+}
 
+li{
+    list-style: none;
+}
