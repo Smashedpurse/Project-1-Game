@@ -15,7 +15,7 @@ body{
     align-items: center;
     flex-direction: column;
     overflow: hidden;
-    background-image: url(/Pictures/astronauta-perdido-en-el-espacio_3840x2160_xtrafondos.com.jpg);
+    background-image: url("Pictures/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     
