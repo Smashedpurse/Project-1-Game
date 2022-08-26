@@ -336,7 +336,7 @@ setInterval(() => {
 
             }if(astro.vida == 0){
                 gameOver.play();
-                
+                alert("Game Over")
                 
             }
 
@@ -354,7 +354,7 @@ setInterval(() => {
                 
             }if(astro.vida <0){
                 gameOver.play();
-                
+                alert("Game Over")
                 
                 
             }
@@ -375,7 +375,7 @@ setInterval(() => {
                 
             }if(astro.vida <0){
                 gameOver.play();
-                
+                alert("Game Over")
                 
             }
 
@@ -399,8 +399,8 @@ setInterval(() => {
                     gelFuel.play()   
                 }
 
-            if (medidor>=400){
-                alert.log("Scape, you have enough fuel to escape")
+            if (medidor>=50){
+                alert("Scape, you have enough fuel to escape")
                 
             }
            
