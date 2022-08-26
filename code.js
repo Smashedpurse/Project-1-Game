@@ -121,14 +121,14 @@ class Astronauta{
     disparar(){
         const ProyectilDer = new Disparo (this.x + this.w,this.y + (this.h/2),20,40,Note1)
         ProyectilDerDeposito.push(ProyectilDer)
-        console.log(ProyectilDerDeposito)
+        
         shoot.play();
     }
 
     dispararizq(){
         const Proyectilizq = new DisparoIzq (this.x -20, this.y + (this.h/2),20,40,Note2)
         ProyectilDerDepositoIzq.push(Proyectilizq)
-        console.log(ProyectilDerDepositoIzq)
+        
         shoot2.play();
     }
     
@@ -239,7 +239,7 @@ class DisparoIzq{
 //Función para identificar el tipo de tecla que se presiona
 function teclas(astro){
     document.addEventListener("keyup", (evento) => {
-         console.log("Tecla tocada",evento.code)
+         
       switch(evento.code){
             case "ArrowRight":
                 astro.avanzar();
@@ -251,7 +251,7 @@ function teclas(astro){
                     astro.disparar()
                     break
             case "Space":
-                    console.log("Brinco")
+                    
                     break;
             case "KeyA":
                 astro.dispararizq()
@@ -291,7 +291,7 @@ function crearAlienAmarillo(){
         if(num == 3){
         const Amarillo = new AlienAmarillo (Math.floor(Math.random()*1850),0,60,60,AlienAyellow) 
         aliensAmarillo.push(Amarillo)  
-        console.log 
+        
         }}
 function gasObjective(){
         const num = Math.floor(Math.random()*50)
@@ -312,7 +312,7 @@ function iniciarJuego(){
     let medidor=0
     const astro = new Astronauta(900,710,80,200,100,Mike)
     teclas(astro)
-    console.log(astro)
+    
     astro.dibujarse(); 
     
 
@@ -351,7 +351,7 @@ setInterval(() => {
                 loseHealth.play()
             }
                 if(astro.vida == 0){
-                console.log("El juego terminó")
+                
             }if(astro.vida <0){
                 gameOver.play();
                 
@@ -400,7 +400,7 @@ setInterval(() => {
                 }
 
             if (medidor>=400){
-                console.log("Scape, you have enough fuel to escape")
+                alert.log("Scape, you have enough fuel to escape")
                 
             }
            
